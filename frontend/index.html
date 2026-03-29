@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Debian AI Website</title>
+    <title>Debian AI Starter v2.5 - Marketplace</title>
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,12 +19,21 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#services">Services</a></li>
+                <li><a href="#agents">Agents</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="theme-toggle">
-                <button id="dark-mode-btn">🌓</button>
+                <button id="dark-mode-btn" title="Toggle Light/Dark Theme">🌓</button>
             </div>
-            <div class="menu-btn">☰</div>
+            <div class="menu-btn" id="mobile-menu-btn">☰</div>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div class="mobile-nav" id="mobile-nav">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#agents">Agents</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
@@ -32,9 +41,12 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Build Smarter AI Apps on Debian</h1>
-                <p>A clean, modern, and responsive starter for your next AI-powered Linux project.</p>
-                <a href="#services" class="btn">Explore Services</a>
+                <h1>AI Starter for Debian Linux</h1>
+                <p>A functional, local-first AI system with integrated LLMs, CLI tools, and a downloadable agent marketplace.</p>
+                <div class="hero-btns">
+                    <a href="#services" class="btn">Explore Services</a>
+                    <a href="#agents" class="btn btn-outline">Browse Agents</a>
+                </div>
             </div>
         </div>
     </section>
@@ -46,7 +58,7 @@
                 <h2>About Us</h2>
                 <div class="underline"></div>
             </div>
-            <p>Our mission is to provide developers with the most efficient tools for building and deploying AI applications on Debian Linux. We focus on simplicity, performance, and modern design principles to help you scale your ideas faster.</p>
+            <p>Our project simplifies local AI development on Debian Linux. By bridging web interfaces, FastAPI backends, and modular CLI agents, we provide a production-ready ecosystem for modern developers.</p>
         </div>
     </section>
 
@@ -58,20 +70,54 @@
                 <div class="underline"></div>
             </div>
             <div class="services-grid">
-                <!-- Service Card 1 -->
-                <div class="card">
+                <div class="card" data-prompt="Briefly explain the benefit of CLI Development for a Debian developer.">
                     <h3>CLI Development</h3>
-                    <p>Building powerful command-line interfaces for local AI interactions and automation.</p>
+                    <p>Build and run local AI agents directly from the command line.</p>
+                    <small>Click to trigger AI Insight</small>
                 </div>
-                <!-- Service Card 2 -->
-                <div class="card">
+                <div class="card" data-prompt="Explain why Model Integration is critical for AI projects on Debian.">
                     <h3>Model Integration</h3>
-                    <p>Seamlessly integrating Large Language Models and custom AI agents into your Debian workflow.</p>
+                    <p>Seamless integration with Ollama for local LLM inference.</p>
+                    <small>Click to trigger AI Insight</small>
                 </div>
-                <!-- Service Card 3 -->
-                <div class="card">
+                <div class="card" data-prompt="Briefly explain Debian cloud deployment for AI apps.">
                     <h3>Cloud Deployment</h3>
-                    <p>Optimization and deployment strategies for AI workloads on Debian-based cloud infrastructure.</p>
+                    <p>Scalable strategies for AI-powered Debian infrastructure.</p>
+                    <small>Click to trigger AI Insight</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Agents Marketplace -->
+    <section id="agents" class="agents">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Agent Marketplace</h2>
+                <div class="underline"></div>
+                <p>Download powerful agents directly to your computer to automate complex tasks locally.</p>
+            </div>
+            <div class="agents-grid">
+                <!-- Research Agent -->
+                <div class="agent-card">
+                    <div class="agent-icon">🔍</div>
+                    <h3>Research Agent</h3>
+                    <p>Performs deep-topic research and generates detailed summaries using local LLMs.</p>
+                    <button class="btn download-btn" data-agent="research_agent.py">Download Agent</button>
+                </div>
+                <!-- Code Agent -->
+                <div class="agent-card">
+                    <div class="agent-icon">💻</div>
+                    <h3>Code Agent</h3>
+                    <p>Generates production-ready Python code optimized for Debian Linux systems.</p>
+                    <button class="btn download-btn" data-agent="code_agent.py">Download Agent</button>
+                </div>
+                <!-- Log Agent -->
+                <div class="agent-card">
+                    <div class="agent-icon">📜</div>
+                    <h3>Log Agent</h3>
+                    <p>Analyzes system logs and provides AI-driven debugging suggestions. (Beta)</p>
+                    <button class="btn download-btn" disabled>Coming Soon</button>
                 </div>
             </div>
         </div>
@@ -107,7 +153,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 AIStarter Project. All rights reserved.</p>
+            <p>&copy; 2026 AIStarter Project - Powering Debian AI.</p>
             <div class="social-links">
                 <a href="#">Twitter</a>
                 <a href="#">GitHub</a>

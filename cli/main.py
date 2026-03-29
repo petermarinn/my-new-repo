@@ -8,7 +8,10 @@ load_dotenv()
 
 # Configuration
 OLLAMA_API_URL = "http://localhost:11434/api/generate"
-DEFAULT_MODEL = os.getenv("OLLAMA_MODEL", "mistral") # Default model
+DEFAULT_MODEL = os.getenv("OLLAMA_MODEL", "mistral")
+
+# Path for Agents
+AGENTS_DIR = os.path.abspath("agents")
 
 def check_ollama_status():
     """Checks if the local Ollama service is reachable."""
@@ -25,7 +28,6 @@ def get_ai_response(prompt: str, model: str = DEFAULT_MODEL):
     if not check_ollama_status():
         return f"Error: Local Ollama service is not running. Please start it to use AI features."
 
-    # Send request to local Ollama API
     payload = {
         "model": model,
         "prompt": prompt,
@@ -41,7 +43,7 @@ def get_ai_response(prompt: str, model: str = DEFAULT_MODEL):
 
 @click.group()
 def cli():
-    """AI Starter CLI - Local AI on Debian."""
+    """AI Starter CLI v2.5 - Local AI & Marketplace on Debian."""
     pass
 
 @cli.command()
@@ -57,17 +59,29 @@ def ask(prompt, model):
 @click.argument('task')
 def run(task):
     """Execute an automated AI task."""
-    # Simplified version for now
     click.echo(f"Running task: {task}...")
-    # Map high-level tasks to specific prompts
     task_prompt = f"Perform the following task: {task}. Return only the result."
     response = get_ai_response(task_prompt)
     click.echo(f"Task Result: {response}")
 
 @cli.command()
+def agents():
+    """List and manage downloaded AI agents."""
+    if not os.path.exists(AGENTS_DIR):
+        click.echo("Agents directory not found.")
+        return
+
+    click.echo("--- Available AI Agents ---")
+    files = [f for f in os.listdir(AGENTS_DIR) if f.endswith('.py')]
+    for file in files:
+        click.echo(f"- {file}")
+    click.echo("---------------------------")
+    click.echo("Use 'python3 agents/<agent_name>' to run an agent.")
+
+@cli.command()
 def version():
     """Show the version of the tool."""
-    click.echo("Debian AI CLI version 2.0.0 (Ollama Powered)")
+    click.echo("Debian AI CLI version 2.5.0 (Marketplace Enabled)")
 
 if __name__ == '__main__':
     cli()
