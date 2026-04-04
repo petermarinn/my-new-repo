@@ -1,63 +1,76 @@
-# Debian AI CLI Project Starter
+# Debian AI Starter System v2.0
 
-A lightweight AI-ready CLI application template for Debian Linux systems. This starter comes pre-configured with essential AI libraries and CLI interaction tools.
+A fully functional, end-to-end local AI starter system for Debian Linux. This project integrates a modern web frontend, a FastAPI backend, and an Ollama-powered CLI tool.
 
-## Prerequisites (Debian)
+## Features
 
-To set up your environment, install the necessary Debian packages:
+- **Local AI (Ollama Integration):** Uses `mistral` (default) for fast local AI responses.
+- **FastAPI Backend:** Acts as a bridge between the frontend and the AI CLI.
+- **Interactive Web UI:** Modern landing page with a working contact form and AI-powered service cards.
+- **Automated Setup:** Single-command installer for all system and Python dependencies.
+
+## End-to-End Setup (Recommended)
+
+To set up the entire project automatically, run the setup script:
 
 ```bash
-sudo apt update
-sudo apt install -y python3 python3-pip python3-venv build-essential
+chmod +x setup.sh
+./setup.sh
 ```
 
-## Getting Started
+The script installs system dependencies, creates a virtual environment, installs Python packages, and pulls the `mistral` AI model.
 
-### 1. Create a Virtual Environment
+---
 
-It is recommended to use a virtual environment to manage dependencies:
+## Running the System
+
+### 1. Start the Backend API
 
 ```bash
-python3 -m venv venv
 source venv/bin/activate
+python3 backend/api.py
 ```
 
-### 2. Install Dependencies
+The API will run at `http://localhost:8000`.
 
-Install the required Python packages from `requirements.txt`:
+### 2. Access the Frontend
+
+Open `frontend/index.html` in your web browser. The frontend is configured to communicate with the FastAPI backend.
+
+- **Contact Form:** Sends data to the backend API.
+- **Services:** Click any service card to trigger a local AI generation.
+
+### 3. Use the CLI Tool
 
 ```bash
-pip install --upgrade pip
-pip install -r requirements.txt
+source venv/bin/activate
+# Ask a general question
+python3 cli/main.py ask "What is Debian?"
+
+# Run an automated AI task
+python3 cli/main.py run "Summarize my git logs"
+
+# Help and command list
+python3 cli/main.py --help
 ```
 
-### 3. Environment Configuration
+---
 
-Create a `.env` file to store your API keys:
+## Troubleshooting
 
-```bash
-touch .env
-echo "OPENAI_API_KEY=your_key_here" >> .env
-```
+- **Ollama not found:** Ensure `ollama` is running (`ollama serve`).
+- **Backend Connection Error:** Check if the FastAPI server is running on port 8000.
+- **Model not found:** Run `ollama pull mistral` manually if the setup script was interrupted.
 
-## Running the Application
+## Project Structure
 
-The application is a CLI tool built with `click`. Here are some common commands:
+- `backend/`: FastAPI application code.
+- `cli/`: Python-based AI CLI tool.
+- `frontend/`: HTML, CSS, and JS files.
+- `setup.sh`: Automated installation script for Debian systems.
+- `requirements.txt`: Python package dependencies.
 
-### Ask a question
-```bash
-python3 main.py ask "What is Debian?"
-```
-
-### Check the version
-```bash
-python3 main.py version
-```
-
-### Help
-```bash
-python3 main.py --help
-```
+---
 
 ## License
 
