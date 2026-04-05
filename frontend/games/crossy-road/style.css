@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background-color: #2c3e50;
+}
+
+canvas {
+    display: block;
+}
+
+#counter {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+#instructions {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 18px;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+#game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    color: white;
+    text-align: center;
+}
+
+#game-over.active {
+    display: flex;
+}
+
+#game-over .content {
+    background: #34495e;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+#game-over h1 {
+    font-size: 64px;
+    margin: 0 0 1rem 0;
+    color: #e74c3c;
+}
+
+#game-over p {
+    font-size: 24px;
+    margin: 0 0 2rem 0;
+}
+
+#retry {
+    padding: 12px 32px;
+    font-size: 20px;
+    font-weight: 600;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#retry:hover {
+    background: #2ecc71;
+}
