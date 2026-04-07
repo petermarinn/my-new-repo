@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PDFParse } from "pdf-parse";
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const pdfParse = require("pdf-parse");
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,9 +17,8 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const parser = new PDFParse({ data: buffer });
-    const result = await parser.getText();
-    const text = result.text?.trim();
+    const data = await pdfParse(buffer);
+    const text = (data.text as string)?.trim();
 
     if (!text) {
       return NextResponse.json(

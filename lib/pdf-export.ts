@@ -4,12 +4,23 @@ import { Fixture } from "./types";
  * Opens a print-friendly window with the submittal binder summary and
  * triggers the browser print dialog so the user can save as PDF.
  */
-export function printBinderPDF(projectTitle: string, fixtures: Fixture[]) {
-  const today = new Date().toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+export function printBinderPDF(
+  projectTitle: string,
+  clientName: string,
+  projectDate: string,
+  fixtures: Fixture[]
+) {
+  const displayDate = projectDate
+    ? new Date(projectDate + "T00:00:00").toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
 
   const tableRows = fixtures
     .map(
@@ -30,6 +41,8 @@ export function printBinderPDF(projectTitle: string, fixtures: Fixture[]) {
     )
     .join("");
 
+  const clientLine = clientName ? `<p class="meta">Client: ${esc(clientName)}</p>` : "";
+
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,19 +51,20 @@ export function printBinderPDF(projectTitle: string, fixtures: Fixture[]) {
 <style>
   body { font-family: system-ui, sans-serif; margin: 2rem; color: #111; }
   h1 { margin-bottom: 0.25rem; }
-  .meta { color: #555; margin-bottom: 1.5rem; }
-  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  .meta { color: #555; margin-bottom: 0.25rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 1rem; }
   th, td { border: 1px solid #ccc; padding: 4px 6px; text-align: left; }
   th { background: #f3f4f6; }
   @media print {
-    body { margin: 0; }
+    body { margin: 0.5in; }
     button { display: none; }
   }
 </style>
 </head>
 <body>
   <h1>${esc(projectTitle || "Submittal Binder")}</h1>
-  <p class="meta">Generated ${today} &mdash; ${fixtures.length} fixture(s)</p>
+  ${clientLine}
+  <p class="meta">${displayDate} &mdash; ${fixtures.length} fixture(s)</p>
   <table>
     <thead>
       <tr>

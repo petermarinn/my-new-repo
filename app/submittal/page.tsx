@@ -9,6 +9,10 @@ import FixtureTable from "./_components/FixtureTable";
 
 export default function SubmittalPage() {
   const [projectTitle, setProjectTitle] = useState("");
+  const [clientName, setClientName] = useState("");
+  const [projectDate, setProjectDate] = useState(
+    () => new Date().toISOString().slice(0, 10)
+  );
   const [fixtures, setFixtures] = useState<Fixture[]>([]);
 
   return (
@@ -18,25 +22,63 @@ export default function SubmittalPage() {
         Upload a lighting schedule PDF to extract fixtures, review them, and export your submittal binder.
       </p>
 
-      <div style={{ marginBottom: "1.5rem" }}>
-        <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>
-          Project Title
-        </label>
-        <input
-          type="text"
-          value={projectTitle}
-          onChange={(e) => setProjectTitle(e.target.value)}
-          placeholder="e.g. Main Street Office Renovation"
-          style={{
-            width: "100%",
-            maxWidth: "400px",
-            padding: "0.5rem 0.75rem",
-            fontSize: "1rem",
-            border: "1px solid #d1d5db",
-            borderRadius: "6px",
-            boxSizing: "border-box",
-          }}
-        />
+      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
+        <div style={{ flex: "1 1 240px" }}>
+          <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>
+            Project Title
+          </label>
+          <input
+            type="text"
+            value={projectTitle}
+            onChange={(e) => setProjectTitle(e.target.value)}
+            placeholder="e.g. Main Street Office Renovation"
+            style={{
+              width: "100%",
+              padding: "0.5rem 0.75rem",
+              fontSize: "1rem",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
+              boxSizing: "border-box",
+            }}
+          />
+        </div>
+        <div style={{ flex: "1 1 200px" }}>
+          <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>
+            Client
+          </label>
+          <input
+            type="text"
+            value={clientName}
+            onChange={(e) => setClientName(e.target.value)}
+            placeholder="e.g. Acme Corp"
+            style={{
+              width: "100%",
+              padding: "0.5rem 0.75rem",
+              fontSize: "1rem",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
+              boxSizing: "border-box",
+            }}
+          />
+        </div>
+        <div style={{ flex: "0 1 160px" }}>
+          <label style={{ display: "block", marginBottom: "0.25rem", fontWeight: 600 }}>
+            Date
+          </label>
+          <input
+            type="date"
+            value={projectDate}
+            onChange={(e) => setProjectDate(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "0.5rem 0.75rem",
+              fontSize: "1rem",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
+              boxSizing: "border-box",
+            }}
+          />
+        </div>
       </div>
 
       <UploadPanel onFixturesLoaded={(f) => setFixtures(f as Fixture[])} />
@@ -61,7 +103,7 @@ export default function SubmittalPage() {
             Export CSV
           </button>
           <button
-            onClick={() => printBinderPDF(projectTitle, fixtures)}
+            onClick={() => printBinderPDF(projectTitle, clientName, projectDate, fixtures)}
             style={{
               padding: "0.5rem 1.2rem",
               fontSize: "0.9rem",
