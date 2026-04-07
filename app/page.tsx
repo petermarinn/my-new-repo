@@ -35,11 +35,22 @@ export default function Home() {
       <h1>Flux Lighting AI</h1>
       <p>Click the button below to test the Groq integration.</p>
 
-      <p style={{ marginTop: "0.5rem" }}>
-        <Link href="/submittal" style={{ color: "#2563eb", textDecoration: "underline" }}>
-          Go to Submittal Binder AI
-        </Link>
-      </p>
+      <Link
+        href="/submittal"
+        style={{
+          display: "inline-block",
+          marginTop: "1rem",
+          padding: "0.65rem 1.4rem",
+          fontSize: "1rem",
+          fontWeight: 600,
+          background: "#7c3aed",
+          color: "#fff",
+          borderRadius: "8px",
+          textDecoration: "none",
+        }}
+      >
+        Open Submittal Binder AI &rarr;
+      </Link>
 
       <button
         onClick={handleTestGroq}

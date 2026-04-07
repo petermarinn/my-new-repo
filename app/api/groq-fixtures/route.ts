@@ -49,6 +49,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  // Groq models have a context window limit. Truncate excessively long input
+  // to avoid 400 errors. ~60k chars is a safe ceiling for llama-3.3-70b with
+  // our system prompt overhead and max_tokens reserved for the response.
+  const MAX_CHARS = 60_000;
+  const safeText = text.length > MAX_CHARS ? text.slice(0, MAX_CHARS) : text;
+
   const groq = new Groq({ apiKey });
 
   try {
@@ -56,7 +62,7 @@ export async function POST(req: NextRequest) {
       model: "llama-3.3-70b-versatile",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: text },
+        { role: "user", content: safeText },
       ],
       max_tokens: 4096,
       temperature: 0.2,
