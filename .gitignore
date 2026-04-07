@@ -3,3 +3,11 @@ __pycache__/
 *$py.class
 venv/
 .env
+
+# Next.js
+.next/
+out/
+node_modules/
+package-lock.json
+next-env.d.ts
+tsconfig.tsbuildinfo
