@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const [message, setMessage] = useState<string | null>(null);
@@ -33,6 +34,12 @@ export default function Home() {
     <main style={{ padding: "2rem", fontFamily: "system-ui, sans-serif" }}>
       <h1>Flux Lighting AI</h1>
       <p>Click the button below to test the Groq integration.</p>
+
+      <p style={{ marginTop: "0.5rem" }}>
+        <Link href="/submittal" style={{ color: "#2563eb", textDecoration: "underline" }}>
+          Go to Submittal Binder AI
+        </Link>
+      </p>
 
       <button
         onClick={handleTestGroq}
